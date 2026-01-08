@@ -1,19 +1,18 @@
+import pygame
+import config
+
 class TrafficLight:
-    def __init__(self, x, y):
+    def __init__(self, x, y, group):
         self.x = x
         self.y = y
+        self.group = group
         self.state = "RED"
-        self.timer = 0
 
-    def update(self):
-        self.timer += 1
+    def draw(self, screen):
+        color = config.GREEN_LIGHT if self.state == "GREEN" else config.RED_LIGHT
         
-        if self.timer > 10:
-            self.timer = 0
-            if self.state == "RED":
-                self.state = "GREEN"
-            else:
-                self.state = "RED"
-    @property
-    def symbol(self):
-        return "R" if self.state == "RED" else "G"
+        center_x = self.x * config.CELL_SIZE + (config.CELL_SIZE // 2)
+        center_y = self.y * config.CELL_SIZE + (config.CELL_SIZE // 2)
+        radius = config.CELL_SIZE // 2 - 2
+        
+        pygame.draw.circle(screen, color, (center_x, center_y), radius)

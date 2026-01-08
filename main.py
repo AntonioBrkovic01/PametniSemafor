@@ -38,7 +38,7 @@ def main():
 
         for auto in vozila:
             cesta.update_position(auto.x, auto.y, auto.symbol)
-            auto.move()
+            auto.move(semafor)
         
         cesta.update_position(semafor.x, semafor.y, semafor.symbol)
 

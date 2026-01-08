@@ -3,7 +3,7 @@ import os
 import random
 from environment.grid import TrafficGrid
 from agents.vehicle import Vehicle
-import config
+from agents.traffic_light import TrafficLight
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -12,14 +12,17 @@ def main():
     WIDTH = 20
     HEIGHT = 20
     vozila = []
+    semafor = TrafficLight(x=9, y=9)
     id_counter = 1
 
     print("Pocinje simulacija")
     time.sleep(1)
 
-    for korak in range(50):
+    for korak in range(100):
         clear_screen()
         cesta = TrafficGrid()
+
+        semafor.update()
 
         if random.random() < 0.3:
             if random.choice(['horizontal', 'vertical']) == 'horizontal':
@@ -37,7 +40,9 @@ def main():
             cesta.update_position(auto.x, auto.y, auto.symbol)
             auto.move()
         
-        print(f"Korak: {korak + 1} | Broj vozila: {len(vozila)}")
+        cesta.update_position(semafor.x, semafor.y, semafor.symbol)
+
+        print(f"Korak: {korak + 1} | Broj vozila: {len(vozila)} | Semafor: {semafor.state}")
         cesta.display()
         
         time.sleep(0.3)

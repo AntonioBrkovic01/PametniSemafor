@@ -17,7 +17,7 @@ class Vehicle:
 
         for s in lista_semafora:
             if next_x == s.x and next_y == s.y:
-                if s.state == "RED":
+                if s.state == "RED" or s.state == "YELLOW":
                     should_stop = True
                     break
 
